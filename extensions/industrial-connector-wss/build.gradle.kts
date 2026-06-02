@@ -29,7 +29,7 @@ dependencies {
 
     // JSON processing
     implementation(libs.jackson.datatype.jakarta.jsonp)
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.0")
 
     // Security - for WSS/TLS support
     implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
