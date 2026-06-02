@@ -1,0 +1,93 @@
+# =============================================================
+# .gitignore – Industrial Connector WSS Client
+# Java 17 · Gradle · Maven · IntelliJ IDEA · Docker
+# =============================================================
+
+# -----------------------------------------------------------------
+# Build output – Gradle
+# -----------------------------------------------------------------
+build/
+.gradle/
+
+# -----------------------------------------------------------------
+# Build output – Maven
+# -----------------------------------------------------------------
+target/
+
+# -----------------------------------------------------------------
+# Application logs
+# -----------------------------------------------------------------
+logs/
+*.log
+*.log.*
+
+# -----------------------------------------------------------------
+# Local / personal environment files
+# (client.env and client.docker.env are committed as templates;
+#  client.local.env holds developer-specific overrides and may
+#  contain real credentials – keep it out of version control)
+# -----------------------------------------------------------------
+client.local.env
+
+# -----------------------------------------------------------------
+# TLS certificates & private keys
+# (never commit private key material)
+# -----------------------------------------------------------------
+#deployment/mosquitto-dynsec/certs/*.key.pem
+#deployment/mosquitto-dynsec/certs/*.crt
+#deployment/mosquitto-dynsec/certs/*.pem
+#docker/mosquitto/config/passwd
+
+# Generic certificate / key patterns
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+
+# -----------------------------------------------------------------
+# Mosquitto runtime data
+# -----------------------------------------------------------------
+docker/mosquitto/data/
+docker/mosquitto/log/
+
+# -----------------------------------------------------------------
+# IntelliJ IDEA
+# -----------------------------------------------------------------
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# -----------------------------------------------------------------
+# Eclipse / STS
+# -----------------------------------------------------------------
+.settings/
+.classpath
+.project
+.factorypath
+
+# -----------------------------------------------------------------
+# VS Code
+# -----------------------------------------------------------------
+.vscode/
+
+# -----------------------------------------------------------------
+# macOS
+# -----------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V2
+.Trashes
+
+# -----------------------------------------------------------------
+# Java crash / heap dumps
+# -----------------------------------------------------------------
+hs_err_pid*.log
+replay_pid*.log
+*.hprof
+

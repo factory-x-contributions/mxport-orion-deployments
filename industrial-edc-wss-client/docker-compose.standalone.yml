@@ -1,0 +1,43 @@
+# =============================================================
+# docker-compose.standalone.yml – Industrial Connector WSS Client
+# =============================================================
+# Runs only the WSS client container.
+#
+# OPC-UA server and MQTT broker are expected to be running
+# externally. Configure their addresses in client.docker.env.
+#
+# Usage:
+#   docker compose -f docker-compose.standalone.yml up -d
+#   docker compose -f docker-compose.standalone.yml logs -f industrial-connector-wss-client
+#   docker compose -f docker-compose.standalone.yml down
+# =============================================================
+
+services:
+
+  # ---- Industrial Connector WSS Client ----------------------
+  industrial-connector-wss-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: edc/industrial-connector-wss-client:latest
+    container_name: industrial-connector-wss-client
+    env_file:
+      - client.docker.env
+    environment:
+      WSS_CLIENT_ENV_FILE: /app/client.env
+    volumes:
+      - ./client.docker.env:/app/client.env:ro
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - dataspace
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  dataspace:
+    external: true
+    name: deployment_default

@@ -1,0 +1,14 @@
+build/
+.gradle/
+.git/
+.gitignore
+.DS_Store
+*.md
+docs/
+tests/performance
+deployment/docker-compose*.yml
+deployment/postman
+.idea/
+*.iml
+*.iws
+

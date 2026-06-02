@@ -1,0 +1,217 @@
+{
+	"changeIndex":	9,
+	"defaultACLAccess":	{
+		"publishClientSend":	false,
+		"publishClientReceive":	true,
+		"subscribe":	false,
+		"unsubscribe":	true
+	},
+	"clients":	[{
+			"username":	"admin",
+			"textname":	"Admin user",
+			"roles":	[{
+					"rolename":	"super-admin"
+				}, {
+					"rolename":	"sys-observe"
+				}, {
+					"rolename":	"topic-observe"
+				}],
+			"encoded_password":	"$7$1000$iDJMc9oWYY9xJVdQKOhl6ju8jaRob4KLDo4WsogwqP1gvpc3drf+80jYy1v0wJhwYenLyIA/p771a4QatWc78w==$EiSriVDfkVnqjy1CBf3ra8tVURBIlR2r6DY8sZfo9wgkt3AUzJ3bOnB5AyaujPL6joFpMZzWWHT2ow5d4+Wrbg=="
+		}, {
+			"username":	"democlient",
+			"textname":	"Demonstration client with full read/write access to the '#' topic hierarchy.",
+			"roles":	[{
+					"rolename":	"client"
+				}],
+			"encoded_password":	"$7$1000$hgUAnei23HCDAxz1jAKPOzRcH/1DaEn9+3mEuI2AXKKFRHcHRQit3sguqKf++DsuussNDr1pBKiwFU+qmNZ3qQ==$WVKF1/WIAFewIlpJkAYVU4VLV9j5u8JkcNzHM/9K3YlgV53xNKOf0EgctNAdAepeFGIUOst6QAQL5gXk/8S0eg=="
+		}, {
+			"username":	"edc-user-8021fb24-591b-46c8-b84a-2fbcd26a01fe",
+			"roles":	[{
+					"rolename":	"edc-role-8021fb24-591b-46c8-b84a-2fbcd26a01fe"
+				}],
+			"encoded_password":	"$7$1000$Kd20GcgLcLL0xPbcoXvrVRK3FGHKs1b9uXddYQqd/BF94mhSgrQYFkGFdpbHZcDiXH97r/JktDsINIpU15GXQA==$hSuvwi0gwVNWRUjY9kDqMCYtdzaw7rCyBEq0D4SAClCqiIR/rKgRhXNui7sjloZ6z6zs9rU4XdBkvuD1O3HtaQ=="
+		}, {
+			"username":	"push-user",
+			"roles":	[{
+					"rolename":	"push-role"
+				}],
+			"encoded_password":	"$7$1000$gfY4pWxd78e+szuf1SKpwX9TfVZCmxmbnSS9aiDaJsCjn8LhYAvU3GMYg/GYeR72zOTFSZRKrGD3sGPWijk54A==$xg3li6Ya/dgK+6MrJv1TiuojYDvIF1QMkAIk/sVhXUYtMBDn+CwtZgRneEZVdEFQ8oNDLUlZg93pjoaL3sRy4w=="
+		}],
+	"groups":	[{
+			"groupname":	"unauthenticated",
+			"textname":	"Unauthenticated group",
+			"textdescription":	"If unauthenticated access is allowed, this group can be used to define roles for clients that connect without a password.",
+			"roles":	[],
+			"clients":	[]
+		}],
+	"anonymousGroup":	"unauthenticated",
+	"roles":	[{
+			"rolename":	"broker-admin",
+			"textdescription":	"Grants access to administer general broker configuration.",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"$CONTROL/broker/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"$CONTROL/broker/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"$CONTROL/broker/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"unsubscribePattern",
+					"topic":	"$CONTROL/broker/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"client",
+			"textdescription":	"Read/write access to the full application topic hierarchy.",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"unsubscribePattern",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"dynsec-admin",
+			"textdescription":	"Grants access to administer clients/groups/roles.",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"unsubscribePattern",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"edc-role-8021fb24-591b-46c8-b84a-2fbcd26a01fe",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientReceive",
+					"topic":	"opcuamqtt-machine-tool-qna/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"opcuamqtt-machine-tool-qna/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"push-role",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"super-admin",
+			"textdescription":	"Grants access to administer all kind of broker controls",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"$CONTROL/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"$CONTROL/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"$CONTROL/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"unsubscribePattern",
+					"topic":	"$CONTROL/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"sys-notify",
+			"textdescription":	"Allow bridges to publish connection state messages.",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"$SYS/broker/connection/%c/state",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"sys-observe",
+			"textdescription":	"Observe the $SYS topic hierarchy.",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientReceive",
+					"topic":	"$SYS/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"$SYS/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"topic-observe",
+			"textdescription":	"Read only access to the full application topic hierarchy.",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientReceive",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"unsubscribePattern",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}]
+}

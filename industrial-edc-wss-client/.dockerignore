@@ -1,0 +1,11 @@
+target/
+logs/
+*.log
+.git/
+.idea/
+*.iml
+docker/mosquitto/data/
+docker/mosquitto/log/
+certs/
+*.env
+

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Provider-PKI-Tool.API", "Provider-PKI-Tool.API\Provider-PKI-Tool.API.csproj", "{73AD1209-F67A-48FA-8E25-A2267B1E75A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer-PKI-Tool.API", "Consumer-PKI-Tool.API\Consumer-PKI-Tool.API.csproj", "{50176A82-39AA-4B84-A20F-184A732A21E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73AD1209-F67A-48FA-8E25-A2267B1E75A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73AD1209-F67A-48FA-8E25-A2267B1E75A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73AD1209-F67A-48FA-8E25-A2267B1E75A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73AD1209-F67A-48FA-8E25-A2267B1E75A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50176A82-39AA-4B84-A20F-184A732A21E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50176A82-39AA-4B84-A20F-184A732A21E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50176A82-39AA-4B84-A20F-184A732A21E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50176A82-39AA-4B84-A20F-184A732A21E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

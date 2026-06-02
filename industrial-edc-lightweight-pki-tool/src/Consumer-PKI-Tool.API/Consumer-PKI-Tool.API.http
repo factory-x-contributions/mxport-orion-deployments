@@ -1,0 +1,6 @@
+@Consumer_PKI_Tool.API_HostAddress = http://localhost:5198
+
+GET {{Consumer_PKI_Tool.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

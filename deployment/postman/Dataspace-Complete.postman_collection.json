@@ -1,0 +1,1301 @@
+{
+  "info": {
+    "_postman_id": "869663c0-ce86-4a15-ae13-169b58fac28e",
+    "name": "Dataspace Complete API Collection",
+    "description": "Complete API collection for Dataspace with Consumer, Provider (QnA & Manufacturing), Identity Hubs, Issuer Service, Catalog Server, EMQX, and OPC UA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1265407"
+  },
+  "item": [
+    {
+      "name": "Health & Version Checks",
+      "item": [
+        {
+          "name": "Consumer Connector Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_VERSION}}/api/version",
+              "host": [
+                "{{CONSUMER_CONNECTOR_VERSION}}"
+              ],
+              "path": [
+                "api",
+                "version"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Provider QnA Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{PROVIDER_QNA_VERSION}}/api/version",
+              "host": [
+                "{{PROVIDER_QNA_VERSION}}"
+              ],
+              "path": [
+                "api",
+                "version"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Provider Manufacturing Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{PROVIDER_MFG_VERSION}}/api/version",
+              "host": [
+                "{{PROVIDER_MFG_VERSION}}"
+              ],
+              "path": [
+                "api",
+                "version"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "EMQX Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{EMQX_DASHBOARD}}",
+              "host": [
+                "{{EMQX_DASHBOARD}}"
+              ]
+            },
+            "description": "Access EMQX Web Dashboard (default credentials: admin/public)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Identity Hub - Consumer",
+      "item": [
+        {
+          "name": "Get Consumer DID Document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{IDENTITYHUB_CONSUMER_DID}}/.well-known/did.json",
+              "host": [
+                "{{IDENTITYHUB_CONSUMER_DID}}"
+              ],
+              "path": [
+                ".well-known",
+                "did.json"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Consumer Credentials",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{IDENTITYHUB_CONSUMER_CREDENTIALS}}/api/credentials/request",
+              "host": [
+                "{{IDENTITYHUB_CONSUMER_CREDENTIALS}}"
+              ],
+              "path": [
+                "api",
+                "credentials",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Identity Hub - Provider",
+      "item": [
+        {
+          "name": "Get Provider DID Document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{IDENTITYHUB_PROVIDER_DID}}/.well-known/did.json",
+              "host": [
+                "{{IDENTITYHUB_PROVIDER_DID}}"
+              ],
+              "path": [
+                ".well-known",
+                "did.json"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Provider Credentials",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{IDENTITYHUB_PROVIDER_CREDENTIALS}}/api/credentials/request",
+              "host": [
+                "{{IDENTITYHUB_PROVIDER_CREDENTIALS}}"
+              ],
+              "path": [
+                "api",
+                "credentials",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Provider QnA - Asset Management",
+      "item": [
+        {
+          "name": "List All Assets",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/assets/request",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "assets",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Asset - OPC UA MQTT",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('ASSET_ID', response['@id']);",
+                  "    console.log('Asset ID set to: ' + response['@id']);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-mqtt-asset-qna-001\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"OPC UA MQTT Asset - QnA\",\n        \"description\": \"Machine tool data from OPC UA server published to MQTT broker\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\",\n        \"type\": \"opcuamqtt\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcuamqtt\",\n        \"serverUrl\": \"{{OPCUA_SERVER}}\",\n        \"nodeIds\": \"i=2259,i=2258,ns=14;i=58250,ns=14;i=58259\",\n        \"mqttBrokerUrl\": \"{{EMQX_MQTT}}\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/assets",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "assets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Asset by ID",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/assets/{{ASSET_ID}}",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "assets",
+                "{{ASSET_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Asset",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/assets/{{ASSET_ID}}",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "assets",
+                "{{ASSET_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Provider QnA - Policy Management",
+      "item": [
+        {
+          "name": "List All Policies",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/policydefinitions/request",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "policydefinitions",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Policy Definition",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('POLICY_ID', response['@id']);",
+                  "    console.log('Policy ID set to: ' + response['@id']);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"PolicyDefinition\",\n    \"@id\": \"opcua-mqtt-policy-qna-001\",\n    \"policy\": {\n        \"@type\": \"Set\",\n        \"permission\": [\n            {\n                \"action\": \"use\",\n                \"constraint\": {\n                    \"leftOperand\": \"MembershipCredential\",\n                    \"operator\": \"eq\",\n                    \"rightOperand\": \"active\"\n                }\n            }\n        ]\n    }\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/policydefinitions",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "policydefinitions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Provider QnA - Contract Definitions",
+      "item": [
+        {
+          "name": "List All Contract Definitions",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/contractdefinitions/request",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "contractdefinitions",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Contract Definition",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('CONTRACT_DEFINITION_ID', response['@id']);",
+                  "    console.log('Contract Definition ID set to: ' + response['@id']);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-mqtt-contract-qna-001\",\n    \"@type\": \"ContractDefinition\",\n    \"accessPolicyId\": \"{{POLICY_ID}}\",\n    \"contractPolicyId\": \"{{POLICY_ID}}\",\n    \"assetsSelector\": {\n        \"@type\": \"Criterion\",\n        \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\n        \"operator\": \"in\",\n        \"operandRight\": [\n            \"{{ASSET_ID}}\"\n        ]\n    }\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/contractdefinitions",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "contractdefinitions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Provider Manufacturing - Asset Management",
+      "item": [
+        {
+          "name": "List All Assets",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_MFG_MANAGEMENT}}/api/management/v3/assets/request",
+              "host": [
+                "{{PROVIDER_MFG_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "assets",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Asset - OPC UA MQTT",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-mqtt-asset-mfg-001\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"OPC UA MQTT Asset - Manufacturing\",\n        \"description\": \"Manufacturing line data from OPC UA server published to MQTT broker\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\",\n        \"type\": \"opcuamqtt\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcuamqtt\",\n        \"serverUrl\": \"{{OPCUA_SERVER}}\",\n        \"nodeIds\": \"i=2259,i=2258,ns=14;i=58250,ns=14;i=58255,ns=14;i=58260\",\n        \"mqttBrokerUrl\": \"{{EMQX_MQTT}}\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_MFG_MANAGEMENT}}/api/management/v3/assets",
+              "host": [
+                "{{PROVIDER_MFG_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "assets"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Consumer - Catalog & Negotiation",
+      "item": [
+        {
+          "name": "Query Catalog from Provider QnA",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const catalog = pm.response.json();",
+                  "    if (catalog['dcat:dataset'] && catalog['dcat:dataset'].length > 0) {",
+                  "        const dataset = catalog['dcat:dataset'][0];",
+                  "        pm.environment.set('ASSET_ID', dataset['@id']);",
+                  "        ",
+                  "        if (dataset['odrl:hasPolicy']) {",
+                  "            const policy = dataset['odrl:hasPolicy'];",
+                  "            pm.environment.set('POLICY_ID', policy['@id']);",
+                  "            ",
+                  "            // Save complete policy as JSON string for use in negotiation",
+                  "            pm.environment.set('FULL_POLICY', JSON.stringify(policy));",
+                  "            ",
+                  "            console.log('Asset ID: ' + dataset['@id']);",
+                  "            console.log('Policy ID: ' + policy['@id']);",
+                  "            console.log('Full Policy: ' + JSON.stringify(policy, null, 2));",
+                  "        }",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"CatalogRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_QNA_DSP_INTERNAL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\"\n}"
+            },
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/catalog/request",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "catalog",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Initiate Contract Negotiation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('CONTRACT_NEGOTIATION_ID', response['@id']);",
+                  "    console.log('Contract Negotiation ID: ' + response['@id']);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"ContractRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_QNA_DSP_INTERNAL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"policy\": {\n        \"@type\": \"Offer\",\n        \"@id\": \"{{POLICY_ID}}\",\n        \"assigner\": \"{{PROVIDER_ID}}\",\n        \"permission\": [\n            {\n                \"action\": \"use\",\n                \"constraint\": {\n                    \"leftOperand\": \"MembershipCredential\",\n                    \"operator\": \"eq\",\n                    \"rightOperand\": \"active\"\n                }\n            }\n        ],\n        \"prohibition\": [],\n        \"obligation\": [],\n        \"target\": \"{{ASSET_ID}}\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/contractnegotiations",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "contractnegotiations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Initiate Contract Negotiation (Use Exact Catalog Policy)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "if (!pm.environment.has('FULL_POLICY')) {",
+                  "    throw new Error('Full policy not found. Please run \"Query Catalog\" first!');",
+                  "}",
+                  "",
+                  "// Parse the saved policy and inject it into the request",
+                  "const fullPolicy = JSON.parse(pm.environment.get('FULL_POLICY'));",
+                  "",
+                  "// Build the contract request body",
+                  "const contractRequest = {",
+                  "    '@context': ['https://w3id.org/edc/connector/management/v0.0.1'],",
+                  "    '@type': 'ContractRequest',",
+                  "    'counterPartyAddress': pm.environment.get('PROVIDER_QNA_DSP_INTERNAL') + '/api/dsp',",
+                  "    'counterPartyId': pm.environment.get('PROVIDER_ID'),",
+                  "    'protocol': 'dataspace-protocol-http',",
+                  "    'policy': fullPolicy",
+                  "};",
+                  "",
+                  "pm.variables.set('contractRequestBody', JSON.stringify(contractRequest));"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('CONTRACT_NEGOTIATION_ID', response['@id']);",
+                  "    console.log('Contract Negotiation ID: ' + response['@id']);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{contractRequestBody}}"
+            },
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/contractnegotiations",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "contractnegotiations"
+              ]
+            },
+            "description": "This request uses the EXACT policy from the catalog response, ensuring no validation errors"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Contract Negotiation Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.contractAgreementId) {",
+                  "        pm.environment.set('CONTRACT_AGREEMENT_ID', response.contractAgreementId);",
+                  "        console.log('Contract Agreement ID: ' + response.contractAgreementId);",
+                  "    }",
+                  "    console.log('Negotiation State: ' + response.state);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/contractnegotiations/{{CONTRACT_NEGOTIATION_ID}}",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "contractnegotiations",
+                "{{CONTRACT_NEGOTIATION_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Provider QnA - Data Plane Management",
+      "item": [
+        {
+          "name": "Check Data Plane Status",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_MANAGEMENT}}/api/management/v3/dataplanes/request",
+              "host": [
+                "{{PROVIDER_QNA_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "dataplanes",
+                "request"
+              ]
+            },
+            "description": "Check if data planes are registered and available"
+          },
+          "response": []
+        },
+        {
+          "name": "Register Data Plane (If Needed)",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"DataPlaneInstance\",\n    \"@id\": \"provider-qna-dataplane\",\n    \"url\": \"{{PROVIDER_QNA_CONTROL}}/api/control/v1/dataplanes\",\n    \"allowedSourceTypes\": [\"HttpData\", \"opcua\", \"opcuamqtt\"],\n    \"allowedDestTypes\": [\"HttpProxy\", \"HttpData\", \"MQTT\"],\n    \"properties\": {\n        \"publicApiUrl\": \"{{PROVIDER_QNA_PUBLIC}}/api/public\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{PROVIDER_QNA_CONTROL}}/api/control/v1/dataplanes",
+              "host": [
+                "{{PROVIDER_QNA_CONTROL}}"
+              ],
+              "path": [
+                "api",
+                "control",
+                "v1",
+                "dataplanes"
+              ]
+            },
+            "description": "Manually register the embedded data plane if it's not auto-registered"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Consumer - Data Transfer",
+      "item": [
+        {
+          "name": "Initiate Transfer Process",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('TRANSFER_PROCESS_ID', response['@id']);",
+                  "    console.log('Transfer Process ID: ' + response['@id']);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"TransferRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_QNA_DSP_INTERNAL}}/api/dsp\",\n    \"contractId\": \"{{CONTRACT_AGREEMENT_ID}}\",\n    \"assetId\": \"{{ASSET_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"transferType\": \"MQTT-PUSH\",\n    \"callbackAddresses\": [],\n    \"dataDestination\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"MQTT\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/transferprocesses",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "transferprocesses"
+              ]
+            },
+            "description": "Initiates a data transfer using HttpData-PULL. For MQTT/OPC UA, you may need to configure the data plane differently."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transfer Process Status",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/transferprocesses/{{TRANSFER_PROCESS_ID}}",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "transferprocesses",
+                "{{TRANSFER_PROCESS_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get EDR (Endpoint Data Reference)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "    const edr = pm.response.json();",
+                  "    if (edr.endpoint) {",
+                  "        pm.environment.set('MQTT_BROKER_URL', edr.endpoint);",
+                  "    }",
+                  "    if (edr.topic) {",
+                  "        pm.environment.set('MQTT_TOPIC', edr.topic);",
+                  "    }",
+                  "    console.log('EDR Response:', JSON.stringify(edr, null, 2));",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/edrs/{{TRANSFER_PROCESS_ID}}/dataaddress",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "edrs",
+                "{{TRANSFER_PROCESS_ID}}",
+                "dataaddress"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Catalog Server Management",
+      "item": [
+        {
+          "name": "Query Catalog Server",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"CatalogRequest\",\n    \"counterPartyAddress\": \"{{CATALOG_SERVER_DSP_INTERNAL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\"\n}"
+            },
+            "url": {
+              "raw": "{{CONSUMER_CONNECTOR_MANAGEMENT}}/api/management/v3/catalog/request",
+              "host": [
+                "{{CONSUMER_CONNECTOR_MANAGEMENT}}"
+              ],
+              "path": [
+                "api",
+                "management",
+                "v3",
+                "catalog",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.test('Status code is 2xx', function () {",
+          "    pm.expect(pm.response.code).to.be.within(200, 299);",
+          "});"
+        ]
+      }
+    }
+  ]
+}

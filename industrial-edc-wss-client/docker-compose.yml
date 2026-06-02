@@ -1,0 +1,68 @@
+# =============================================================
+# docker-compose.yml – Industrial Connector WSS Client
+# =============================================================
+# Runs the WSS client and joins an external network so it can
+# reach an OPC-UA server, MQTT broker, and EDC connector that
+# are running outside this project.
+#
+# Create (or verify) the external network before starting:
+#   docker network create dataspace
+#
+# Usage:
+#   docker compose up -d
+#   docker compose logs -f industrial-connector-wss-client
+#   docker compose down
+# =============================================================
+
+services:
+
+  # ---- Industrial Connector WSS Client ----------------------
+  industrial-connector-wss-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: edc/industrial-connector-wss-client:latest
+    container_name: industrial-connector-wss-client
+
+    environment:
+      WSS_CLIENT_ENV_FILE: /app/client.env
+      # Uncomment to override individual values from client.docker.env:
+      # WSS_API_KEY: "changeme"
+      # WSS_CLIENT_ID: "opcua-wss-client-docker-01"
+
+    volumes:
+      # Main configuration file
+      - ./client.docker.env:/app/client.env:ro
+      # TLS certificates (adjust host path as needed)
+      - ./certs:/app/certs:ro
+      # Persist logs on the host
+      - ./logs:/app/logs
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'app.jar' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+    networks:
+      - dataspace
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+# =============================================================
+# Networks
+# =============================================================
+networks:
+  dataspace:
+    external: true
+    # Change the name to match your external dataspace network, e.g.:
+    #   minimumdataspace_default
+    name: dataspace
+

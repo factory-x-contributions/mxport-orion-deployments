@@ -1,0 +1,798 @@
+{
+	"info": {
+		"_postman_id": "opcua-mvd-collection",
+		"name": "MVD-OPCUA",
+		"description": "OPC UA asset seeding for Minimum Viable Dataspace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Seed OPC UA Provider QnA",
+			"item": [
+				{
+					"name": "Create OPC UA Asset - Server Time",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-server-time-qna\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"OPC UA Server Current Time (QnA)\",\n        \"description\": \"Live server time from OPC UA server - QnA Department\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcua\",\n        \"serverUrl\": \"{{OPC_SERVER_URL}}\",\n        \"nodeId\": \"ns=0;i=2258\",\n        \"username\": \"{{OPC_SERVER_USERNAME}}\",\n        \"password\": \"{{OPC_SERVER_PASSWORD}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/assets",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Asset - Server Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-server-status-qna\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"OPC UA Server Status (QnA)\",\n        \"description\": \"Live server status from OPC UA server - QnA Department\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcua\",\n        \"serverUrl\": \"{{OPC_SERVER_URL}}\",\n        \"nodeId\": \"ns=0;i=2259\",\n        \"username\": \"{{OPC_SERVER_USERNAME}}\",\n        \"password\": \"{{OPC_SERVER_PASSWORD}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/assets",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Policy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"PolicyDefinition\",\n    \"@id\": \"opcua-policy\",\n    \"policy\": {\n        \"@type\": \"Set\",\n        \"permission\": [\n            {\n                \"action\": \"use\",\n                \"constraint\": {\n                    \"leftOperand\": \"MembershipCredential\",\n                    \"operator\": \"eq\",\n                    \"rightOperand\": \"active\"\n                }\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/policydefinitions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"policydefinitions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Contract Definition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-contract-qna\",\n    \"@type\": \"ContractDefinition\",\n    \"accessPolicyId\": \"opcua-policy\",\n    \"contractPolicyId\": \"opcua-policy\",\n    \"assetsSelector\": {\n        \"@type\": \"Criterion\",\n        \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\n        \"operator\": \"in\",\n        \"operandRight\": [\n            \"opcua-server-time-qna\",\n            \"opcua-server-status-qna\"\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/contractdefinitions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"contractdefinitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seed OPC UA Provider Manufacturing",
+			"item": [
+				{
+					"name": "Create OPC UA Asset - Temperature",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-temperature-mf\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"Manufacturing Temperature Sensor\",\n        \"description\": \"Live temperature reading from manufacturing floor OPC UA server\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\",\n        \"category\": \"sensor-data\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcua\",\n        \"serverUrl\": \"{{OPC_SERVER_URL}}\",\n        \"nodeId\": \"ns=2;s=Temperature\",\n        \"username\": \"{{OPC_SERVER_USERNAME}}\",\n        \"password\": \"{{OPC_SERVER_PASSWORD}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/assets",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Asset - Pressure",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-pressure-mf\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"Manufacturing Pressure Sensor\",\n        \"description\": \"Live pressure reading from manufacturing floor OPC UA server\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\",\n        \"category\": \"sensor-data\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcua\",\n        \"serverUrl\": \"{{OPC_SERVER_URL}}\",\n        \"nodeId\": \"ns=2;s=Pressure\",\n        \"username\": \"{{OPC_SERVER_USERNAME}}\",\n        \"password\": \"{{OPC_SERVER_PASSWORD}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/assets",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Asset - Server Time",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-server-time-mf\",\n    \"@type\": \"Asset\",\n    \"properties\": {\n        \"name\": \"OPC UA Server Current Time (Manufacturing)\",\n        \"description\": \"Live server time from OPC UA server - Manufacturing Department\",\n        \"contenttype\": \"application/json\",\n        \"version\": \"1.0\"\n    },\n    \"dataAddress\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"opcua\",\n        \"serverUrl\": \"{{OPC_SERVER_URL}}\",\n        \"nodeId\": \"ns=0;i=2258\",\n        \"username\": \"{{OPC_SERVER_USERNAME}}\",\n        \"password\": \"{{OPC_SERVER_PASSWORD}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/assets",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Policy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"PolicyDefinition\",\n    \"@id\": \"opcua-policy-manufacturing\",\n    \"policy\": {\n        \"@type\": \"Set\",\n        \"permission\": [\n            {\n                \"action\": \"use\",\n                \"constraint\": {\n                    \"leftOperand\": \"MembershipCredential\",\n                    \"operator\": \"eq\",\n                    \"rightOperand\": \"active\"\n                }\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/policydefinitions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"policydefinitions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OPC UA Contract Definition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-contract-manufacturing\",\n    \"@type\": \"ContractDefinition\",\n    \"accessPolicyId\": \"opcua-policy-manufacturing\",\n    \"contractPolicyId\": \"opcua-policy-manufacturing\",\n    \"assetsSelector\": {\n        \"@type\": \"Criterion\",\n        \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\n        \"operator\": \"in\",\n        \"operandRight\": [\n            \"opcua-temperature-mf\",\n            \"opcua-pressure-mf\",\n            \"opcua-server-time-mf\"\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/contractdefinitions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"contractdefinitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seed OPC UA Catalog Server",
+			"item": [
+				{
+					"name": "Create OPC UA Policy for Catalog",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"PolicyDefinition\",\n    \"@id\": \"opcua-catalog-policy\",\n    \"policy\": {\n        \"@type\": \"Set\",\n        \"permission\": [\n            {\n                \"action\": \"use\",\n                \"constraint\": {\n                    \"leftOperand\": \"MembershipCredential\",\n                    \"operator\": \"eq\",\n                    \"rightOperand\": \"active\"\n                }\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/policydefinitions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"policydefinitions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Contract Definition for Catalog",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@id\": \"opcua-catalog-contract\",\n    \"@type\": \"ContractDefinition\",\n    \"accessPolicyId\": \"opcua-catalog-policy\",\n    \"contractPolicyId\": \"opcua-catalog-policy\",\n    \"assetsSelector\": {\n        \"@type\": \"Criterion\",\n        \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\n        \"operator\": \"in\",\n        \"operandRight\": [\n            \"linked-asset-provider-qna\",\n            \"linked-asset-provider-manufacturing\"\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/contractdefinitions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"contractdefinitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consumer - Query and Transfer",
+			"item": [
+				{
+					"name": "Query Catalog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract policy id and asset details from catalog response",
+									"if(pm.response.code < 300 && pm.response.code >= 200){",
+									"    const catalog = pm.response.json();",
+									"    if(catalog[\"dcat:dataset\"] && catalog[\"dcat:dataset\"].length > 0){",
+									"        const datasets = catalog[\"dcat:dataset\"];",
+									"        ",
+									"        // Find the first OPC UA asset",
+									"        const opcuaAsset = datasets.find((asset) => asset[\"@id\"] && (asset[\"@id\"].includes(\"opcua\") || asset[\"@id\"].includes(\"server-time\")));",
+									"        ",
+									"        if(opcuaAsset){",
+									"            const policyId = opcuaAsset[\"odrl:hasPolicy\"][\"@id\"];",
+									"            const assetId = opcuaAsset[\"@id\"];",
+									"            ",
+									"            pm.environment.set(\"POLICY_ID\", policyId);",
+									"            pm.environment.set(\"ASSET_ID\", assetId);",
+									"            ",
+									"            console.log(\"Policy ID set to: \" + policyId);",
+									"            console.log(\"Asset ID set to: \" + assetId);",
+									"        }",
+									"    }",
+									"}",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"Policy ID is set\", function(){",
+									"    pm.expect(pm.environment.get(\"POLICY_ID\")).not.to.be.undefined",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"CatalogRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_DSP_URL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CONSUMER_HOST}}/api/management/v3/catalog/request",
+							"host": [
+								"{{CONSUMER_HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"catalog",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiate Contract Negotiation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(!pm.environment.has(\"POLICY_ID\")){",
+									"    throw new Error('Policy ID is not yet available, please execute request \"Query Catalog\" first!');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CONTRACT_NEGOTIATION_ID\", pm.response.json()[\"@id\"]);",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"Contract negotiation id is set\", function(){",
+									"    pm.expect(pm.environment.get(\"CONTRACT_NEGOTIATION_ID\")).not.to.be.undefined",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"ContractRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_DSP_URL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"policy\": {\n        \"@type\": \"Offer\",\n        \"@id\": \"{{POLICY_ID}}\",\n        \"assigner\": \"{{PROVIDER_ID}}\",\n        \"permission\": [\n            {\n                \"action\": \"use\",\n                \"constraint\": {\n                    \"leftOperand\": \"MembershipCredential\",\n                    \"operator\": \"eq\",\n                    \"rightOperand\": \"active\"\n                }\n            }\n        ],\n        \"prohibition\": [],\n        \"obligation\": [],\n        \"target\": \"{{ASSET_ID}}\"\n    },\n    \"callbackAddresses\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CONSUMER_HOST}}/api/management/v3/contractnegotiations",
+							"host": [
+								"{{CONSUMER_HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"contractnegotiations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contract Negotiations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get the contract agreement id and save it as an environment variable",
+									"if(pm.response.code < 300 && pm.response.code >= 200 && pm.response.json().length > 0){",
+									"    var find_negotiation;",
+									"    if (pm.environment.has(\"CONTRACT_NEGOTIATION_ID\")){",
+									"        find_negotiation = pm.response.json().find((el) => el[\"@id\"] == pm.environment.get(\"CONTRACT_NEGOTIATION_ID\"))",
+									"    }",
+									"",
+									"    if(find_negotiation){",
+									"        const contractAgreementId = find_negotiation[\"contractAgreementId\"];",
+									"        pm.environment.set(\"CONTRACT_AGREEMENT_ID\", contractAgreementId);",
+									"        console.log(\"Contract Agreement ID set to: \" + contractAgreementId);",
+									"    }",
+									"}",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"Contract Agreement ID is set\", function(){",
+									"    pm.expect(pm.environment.get(\"CONTRACT_AGREEMENT_ID\")).not.to.be.undefined",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@type\": \"QuerySpec\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CONSUMER_HOST}}/api/management/v3/contractnegotiations/request",
+							"host": [
+								"{{CONSUMER_HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"contractnegotiations",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiate Transfer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"TRANSFER_PROCESS_ID\", pm.response.json()[\"@id\"]);",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"Transfer process id is set\", function(){",
+									"    pm.expect(pm.environment.get(\"TRANSFER_PROCESS_ID\")).not.to.be.undefined",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"TransferRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_DSP_URL}}/api/dsp\",\n    \"contractId\": \"{{CONTRACT_AGREEMENT_ID}}\",\n    \"assetId\": \"{{ASSET_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"transferType\": \"HttpData-PULL\",\n    \"callbackAddresses\": [],\n    \"dataDestination\": {\n        \"@type\": \"DataAddress\",\n        \"type\": \"HttpProxy\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CONSUMER_HOST}}/api/management/v3/transferprocesses",
+							"host": [
+								"{{CONSUMER_HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"transferprocesses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get EDR DataAddress",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract the authorization token and endpoint from EDR",
+									"if(pm.response.code < 300 && pm.response.code >= 200){",
+									"    const edr = pm.response.json();",
+									"    pm.environment.set(\"EDR_ENDPOINT\", edr.endpoint);",
+									"    pm.environment.set(\"EDR_AUTHORIZATION\", edr.authorization);",
+									"    console.log(\"EDR Endpoint: \" + edr.endpoint);",
+									"    console.log(\"EDR Authorization token set\");",
+									"}",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"EDR endpoint is set\", function(){",
+									"    pm.expect(pm.environment.get(\"EDR_ENDPOINT\")).not.to.be.undefined",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CONSUMER_HOST}}/api/management/v3/edrs/{{TRANSFER_PROCESS_ID}}/dataaddress",
+							"host": [
+								"{{CONSUMER_HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"edrs",
+								"{{TRANSFER_PROCESS_ID}}",
+								"dataaddress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get OPC UA Data",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{EDR_AUTHORIZATION}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{EDR_ENDPOINT}}",
+							"host": [
+								"{{EDR_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8191"
+		},
+		{
+			"key": "OPC_SERVER_URL",
+			"value": "opc.tcp://127.0.0.1:4840"
+		},
+		{
+			"key": "OPC_SERVER_USERNAME",
+			"value": ""
+		},
+		{
+			"key": "OPC_SERVER_PASSWORD",
+			"value": ""
+		},
+		{
+			"key": "PROVIDER_QNA_DSP_URL",
+			"value": "http://localhost:8192"
+		},
+		{
+			"key": "PROVIDER_MF_DSP_URL",
+			"value": "http://localhost:8292"
+		},
+		{
+			"key": "CONSUMER_HOST",
+			"value": "http://localhost:8081"
+		},
+		{
+			"key": "PROVIDER_DSP_URL",
+			"value": "http://localhost:8192"
+		},
+		{
+			"key": "PROVIDER_ID",
+			"value": "did:web:localhost%3A7093"
+		},
+		{
+			"key": "ASSET_ID",
+			"value": "opcua-server-time-qna"
+		},
+		{
+			"key": "POLICY_ID",
+			"value": ""
+		},
+		{
+			"key": "CONTRACT_AGREEMENT_ID",
+			"value": ""
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-Api-Key",
+				"type": "string"
+			}
+		]
+	}
+}

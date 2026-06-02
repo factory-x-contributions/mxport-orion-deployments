@@ -1,0 +1,216 @@
+services:
+  identityhub-consumer:
+    build:
+      context: ..
+      dockerfile: launchers/identity-hub/Dockerfile
+    env_file:
+      - ./assets/env/consumer_identityhub.env
+    environment:
+      LOG_LEVEL: debug
+      IDENTITY_HUB_ROLE: consumer
+    ports:
+      - "7080:7080"
+      - "7081:7081"
+      - "7082:7082"
+      - "7083:7083"
+      - "7085:7085"
+      - "7086:7086"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+
+  identityhub-provider:
+    build:
+      context: ..
+      dockerfile: launchers/identity-hub/Dockerfile
+    env_file:
+      - ./assets/env/provider_identityhub.env
+    environment:
+      LOG_LEVEL: debug
+      IDENTITY_HUB_ROLE: provider
+    ports:
+      - "7090:7090"
+      - "7091:7091"
+      - "7092:7092"
+      - "7093:7093"
+      - "7095:7095"
+      - "7096:7096"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+
+  issuer-service:
+    build:
+      context: ..
+      dockerfile: launchers/issuerservice/Dockerfile
+    env_file:
+      - ./assets/env/issuerservice.env
+    environment:
+      LOG_LEVEL: debug
+    ports:
+      - "10010:10010"
+      - "10011:10011"
+      - "10012:10012"
+      - "10013:10013"
+      - "10014:10014"
+      - "10015:10015"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - identityhub-consumer
+
+  provider-catalog-server:
+    build:
+      context: ..
+      dockerfile: launchers/catalog-server/Dockerfile
+    env_file:
+      - ./assets/env/provider_catalogserver.env
+    environment:
+      LOG_LEVEL: debug
+    ports:
+      - "8092:8092"
+      - "8091:8091"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - identityhub-provider
+
+  provider-connector-qna:
+    build:
+      context: ..
+      dockerfile: launchers/runtime-embedded/Dockerfile
+    env_file:
+      - ./assets/env/provider_connector_qna.env
+    environment:
+      LOG_LEVEL: debug
+      CONNECTOR_ROLE: provider-qna
+    ports:
+      - "8190:8190"
+      - "8191:8191"
+      - "8192:8192"
+      - "8193:8193"
+      - "8194:8194"
+      - "8195:8195"
+      - "8181:8181"
+      - "12001:12001"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+      - ./mosquitto-dynsec/certs:/mosquitto/certs:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - identityhub-provider
+      - provider-catalog-server
+
+  provider-connector-manufacturing:
+    build:
+      context: ..
+      dockerfile: launchers/runtime-embedded/Dockerfile
+    env_file:
+      - ./assets/env/provider_connector_manufacturing.env
+    environment:
+      LOG_LEVEL: debug
+      CONNECTOR_ROLE: provider-manufacturing
+    ports:
+      - "8290:8290"
+      - "8291:8291"
+      - "8292:8292"
+      - "8293:8293"
+      - "8294:8294"
+      - "8295:8295"
+      - "12002:12002"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - identityhub-provider
+      - provider-catalog-server
+
+  consumer-connector:
+    build:
+      context: ..
+      dockerfile: launchers/runtime-embedded/Dockerfile
+    env_file:
+      - ./assets/env/consumer_connector.env
+    environment:
+      LOG_LEVEL: debug
+      CONNECTOR_ROLE: consumer
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+      - "8085:8085"
+      - "11001:11001"
+    volumes:
+      - ./assets:/app/deployment/assets:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - identityhub-consumer
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto-dynsec
+    profiles: [ "plain" ]
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto-dynsec/config:/mosquitto/config
+      - mosquitto-data:/mosquitto/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+  mosquitto-tls:
+      image: eclipse-mosquitto:2
+      container_name: mosquitto-dynsec
+      profiles: [ "tls" ]
+      restart: unless-stopped
+      ports:
+        - "8883:8883"
+      volumes:
+        - ./mosquitto-dynsec/config-cert:/mosquitto/config
+        - ./mosquitto-dynsec/certs:/mosquitto/certs
+        - mosquitto-data:/mosquitto/data
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+        - "localhost:host-gateway"
+  opcua-server:
+    image: ghcr.io/umati/sample-server:main
+    container_name: opcua-server
+    ports:
+      - "4840:4840"
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "9876:80"
+    volumes:
+      - ./assets/issuer/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./assets/issuer/did.docker.json:/var/www/.well-known/did.json:ro
+volumes:
+  mosquitto-data:
+
