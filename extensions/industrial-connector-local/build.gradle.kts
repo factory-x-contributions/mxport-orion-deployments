@@ -12,9 +12,9 @@ dependencies {
     implementation(libs.milo.sdk.client)
 
     // Transfer SPI for DataFlow support
-    implementation("org.eclipse.edc:transfer-spi:0.9.0")
-    implementation("org.eclipse.edc:web-spi:0.9.0")
-    runtimeOnly("org.eclipse.edc:jetty-core:0.9.0")
+    implementation("org.eclipse.edc:transfer-spi:0.17.0")
+    implementation("org.eclipse.edc:web-spi:0.17.0")
+    runtimeOnly("org.eclipse.edc:jetty-core:0.17.0")
 
     // JAX-RS for REST API endpoints
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")

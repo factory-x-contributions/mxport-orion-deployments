@@ -7,18 +7,18 @@ dependencies {
     implementation(libs.edc.core.runtime)
 
     // Runtime metamodel for @Inject annotation
-    implementation("org.eclipse.edc:runtime-metamodel:0.9.0")
+    implementation("org.eclipse.edc:runtime-metamodel:0.17.0")
 
     // Transfer and control plane dependencies
-    implementation("org.eclipse.edc:control-plane-spi:0.9.0")
-    implementation("org.eclipse.edc:transfer-spi:0.9.0")
+    implementation("org.eclipse.edc:control-plane-spi:0.17.0")
+    implementation("org.eclipse.edc:transfer-spi:0.17.0")
 
     // Common SPI for TransferFlowService
     implementation(project(":extensions:common-spi"))
 
     // Web and WebSocket support
-    implementation("org.eclipse.edc:web-spi:0.9.0")
-    runtimeOnly("org.eclipse.edc:jetty-core:0.9.0")
+    implementation("org.eclipse.edc:web-spi:0.17.0")
+    runtimeOnly("org.eclipse.edc:jetty-core:0.17.0")
 
     // Jetty Server
     implementation("org.eclipse.jetty:jetty-server:12.0.7")
