@@ -9,8 +9,8 @@ dependencies {
     implementation(libs.edc.core.runtime)
 
     // BouncyCastle for PEM certificate/key parsing
-    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
-    implementation("org.bouncycastle:bcpkix-jdk18on:1.78.1")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.84")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.84")
 
     // MQTT Client - Eclipse Paho v3
     implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
