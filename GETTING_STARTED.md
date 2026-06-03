@@ -30,9 +30,9 @@ This starter kit is the **core** of the industrial dataspace. The two optional c
 
 | Component | Purpose | Required for |
 |---|---|---|
-| Core starter kit (this repo root) — originally [industrial-minimum-viable-dataspace-starter-kit](https://github.com/Machine-Information-Interoperability/industrial-minimum-viable-dataspace-starter-kit) | Core EDC connectors, OPC UA → MQTT extension, Docker Compose stack | Always |
-| [industrial-edc-wss-client/](industrial-edc-wss-client/) — originally [industrial-edc-wss-client](https://github.com/Machine-Information-Interoperability/industrial-edc-wss-client) | Edge/plant-side WebSocket client that relays OPC UA data through a firewall to the connector | Only when `edc.industrial.connector.wss.enabled=true` |
-| [industrial-edc-lightweight-pki-tool/](industrial-edc-lightweight-pki-tool/) — originally [industrial-edc-lightweight-pki-tool](https://github.com/Machine-Information-Interoperability/industrial-edc-lightweight-pki-tool) | Local PKI service for issuing and signing TLS certificates used in mutual-TLS MQTT auth | Only when `edc.industrial.connector.cert.auth.enabled=true` |
+| Core starter kit (this repo root) | Core EDC connectors, OPC UA → MQTT extension, Docker Compose stack | Always |
+| [industrial-edc-wss-client/](industrial-edc-wss-client/) | Edge/plant-side WebSocket client that relays OPC UA data through a firewall to the connector | Only when `edc.industrial.connector.wss.enabled=true` |
+| [industrial-edc-lightweight-pki-tool/](industrial-edc-lightweight-pki-tool/) | Local PKI service for issuing and signing TLS certificates used in mutual-TLS MQTT auth | Only when `edc.industrial.connector.cert.auth.enabled=true` |
 
 ---
 

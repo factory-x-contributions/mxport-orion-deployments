@@ -9,8 +9,8 @@ This repository bundles the Industrial MVD starter kit together with its two opt
 | Component | Purpose |
 |---|---|
 | **Core starter kit** (this repo root) | Core EDC connectors and Industrial Connector extensions |
-| **[industrial-edc-wss-client/](industrial-edc-wss-client/)** — originally [Machine-Information-Interoperability/industrial-edc-wss-client](https://github.com/Machine-Information-Interoperability/industrial-edc-wss-client) | Edge/plant-side WebSocket client for firewall-traversal mode |
-| **[industrial-edc-lightweight-pki-tool/](industrial-edc-lightweight-pki-tool/)** — originally [Machine-Information-Interoperability/industrial-edc-lightweight-pki-tool](https://github.com/Machine-Information-Interoperability/industrial-edc-lightweight-pki-tool) | Local PKI service for TLS / certificate-based MQTT authentication |
+| **[industrial-edc-wss-client/](industrial-edc-wss-client/)** | Edge/plant-side WebSocket client for firewall-traversal mode |
+| **[industrial-edc-lightweight-pki-tool/](industrial-edc-lightweight-pki-tool/)** | Local PKI service for TLS / certificate-based MQTT authentication |
 
 ---
 

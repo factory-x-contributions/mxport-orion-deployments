@@ -1,7 +1,7 @@
 # Industrial Connector WSS Client
 
 Standalone Java application that acts as the **field-side agent** for the
-[Industrial Eclipse Dataspace Connector](https://github.com/Machine-Information-Interoperability/industrial-minimum-viable-dataspace-starter-kit) and its industrial
+Industrial Eclipse Dataspace Connector and its industrial
 WebSocket extension (`IndustrialWebSocketExtension`).
 
 ## What it does
