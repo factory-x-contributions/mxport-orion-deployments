@@ -1,3 +1,6 @@
+# Important
+
+This repository is archived. It will receive no further development or maintenance. Interested parties are invited to fork the repository and continue the work independently.
 # Industrial Connector – OPC UA / MQTT Data Sharing over Eclipse Dataspace Components (EDC)
 
 > **New here?** Start with the **[Getting Started Guide](GETTING_STARTED.md)** — it walks you through installing prerequisites, cloning the repository, and running the full dataspace from zero.
