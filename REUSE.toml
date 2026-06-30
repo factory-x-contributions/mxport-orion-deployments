@@ -1,0 +1,6 @@
+version = 1
+
+[[annotations]]
+path = "**"
+SPDX-FileCopyrightText = "2025 VDMA e.V."
+SPDX-License-Identifier = "Apache-2.0"
